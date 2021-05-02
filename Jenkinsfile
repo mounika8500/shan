@@ -5,29 +5,29 @@ pipeline {
     stage ('git clone') {
             steps {
         echo "code is building"
-         git 'https://github.com/umahari/testing.git'
+         git 'https://github.com/mounika8500/shan'
             }
         }
 
         stage ('Bulding docker docker image') {
             steps {
                 echo "build docker image"
-                sh 'docker build --no-cache -t saidevops94/repos .'
+                sh 'docker build --no-cache -t test .'
             }
         }
-        stage ('Uploading to docker hub') {
+        stage ('Uploading to ECR ') {
             steps {
-                echo "uploading to docker hub" 
-                sh 'docker login -u saidevops94 -p Sai@809969'
-                sh 'docker push saidevops94/repos:latest'
+                echo "uploading to ECR" 
+                sh 'docker push 195778983030.dkr.ecr.ap-south-1.amazonaws.com/test:latest'
+                
             }
         }
 
-        stage ('deploying to GKE') {
+        stage ('deploying to EKS') {
            steps {
-                echo "deploying imges to GKE"
+                echo "deploying imges to EKS"
                 sh 'kubectl apply -f test-dep.yaml'
-                sh 'kubectl set image deployment/httpd-deployment httpd2=saidevops94/repos:latest'
+                sh 'kubectl set image deployment/httpd-deployment httpd2=195778983030.dkr.ecr.ap-south-1.amazonaws.com/test:latest'
                 sh 'kubectl apply -f test-svc.yaml'
                 sh 'kubectl rollout restart deployment/httpd-deployment'
                 sh 'docker rmi -f $(docker images --filter "dangling=true" -q --no-trunc)'
