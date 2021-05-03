@@ -19,10 +19,7 @@ pipeline {
         stage ('Uploading to ECR ') {
             steps {
                 echo "uploading to ECR" 
-                sh 'docker push 195778983030.dkr.ecr.ap-south-1.amazonaws.com/test:latest'
-
-'
-                
+                sh 'docker push 195778983030.dkr.ecr.ap-south-1.amazonaws.com/test:latest'      
             }
         }
 
