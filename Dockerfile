@@ -4,7 +4,7 @@ MAINTAINER sai@hcl.com
 
 RUN yum install httpd -y
 
-COPY index.html /var/www/html/index.html
+COPY index.html /var/www/html/food-master
 
 WORKDIR /var/www/html
 
