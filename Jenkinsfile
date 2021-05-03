@@ -14,8 +14,6 @@ pipeline {
                 echo "build docker image"
                 sh 'docker build --no-cache -t test .'
                 sh 'docker tag test:latest 195778983030.dkr.ecr.ap-south-1.amazonaws.com/test:latest'
-
-
             }
         }
         stage ('Uploading to ECR ') {
